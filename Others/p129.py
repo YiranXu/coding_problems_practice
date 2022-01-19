@@ -5,8 +5,8 @@
 def words(letters, word=''):
     letters or print(word)
     for letter in letters:
-        print("letters",letters)
-        print("letter",letter)
+        #print("letters",letters)
+        #print("letter",letter)
         words(letters - {letter}, word + letter)
 
-words(set('catdog'))
+words(set('ca'))
