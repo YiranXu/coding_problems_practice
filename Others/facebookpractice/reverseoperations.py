@@ -55,6 +55,41 @@ def reverse(head):
         last=cur
         reverse_parts(prev,first,last,after)
     return dummy.next
+
+def reverse_2(head):
+  #https://leetcode.com/discuss/interview-question/688086/fb-online-practice-question
+  # Reverses a sublist of the linked list (`start` node is inclusive, while `end`node is exclusive).
+  def reverseSublist(start, end):
+    prev = end # set the prev to end to link up the newly reversed tail to the next node
+    curr = start
+    
+    while curr != end:
+      next = curr.next
+      curr.next = prev
+      prev = curr
+      curr = next
+      
+    return prev
+  
+  dummy = Node(0)
+  dummy.next = head
+  prev = dummy
+  curr = head
+
+  while curr:
+    start = curr
+    
+    while curr and curr.data % 2 == 0: # Keep advancing the fast pointer until it reaches an odd-valued node or the end of the list.
+      curr = curr.next
+      
+    if start != curr: # Signifies that there is a list to reverse.
+      prev.next = reverseSublist(start, curr)
+
+    if curr:
+      prev = curr
+      curr = curr.next
+    
+  return dummy.next
 def createLinkedList(arr):
     head = None
     tempHead = head
@@ -70,6 +105,7 @@ if __name__ == "__main__":
     head_1 = createLinkedList([1, 2, 8, 9, 12, 16])
     expected_1 = createLinkedList([1, 8, 2, 9, 16, 12])
     output_1 = reverse(head_1)
+    output_1 = reverse_2(head_1)
     #check(expected_1, output_1)
 
     head_2 = createLinkedList([2, 18, 24, 3, 5, 7, 9, 6, 12,5])
